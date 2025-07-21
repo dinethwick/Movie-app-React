@@ -20,7 +20,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState('');
   // for movie list
   const [movieList, setMovieList] = useState([]);
-  // for a is loading message
+  // for a 'is loading' message
   const [isLoading, setIsLoading] = useState(false)
       
   
@@ -76,7 +76,7 @@ const App = () => {
       <div className="wrapper">
         <header>
           <img src="hero.png" alt="Hero Banner" />
-          <h1>Find <span className="text-gradient">Movies</span> You'll HATE without the Hassle</h1>
+          <h1>Find <span className="text-gradient">Movies</span> You'll Love Without the Hassle</h1>
         
 
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -85,8 +85,27 @@ const App = () => {
 
         <section className='all-movies'>
           <h2>All Movies</h2>
-          {/* if there is an error message, render it in a p tag */} 
-          {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+          
+          {/*
+          render fetch results using multi-ternary operator
+          if isLoading - show loading text
+          else if errorMessage - show error message text
+          else - render movie list 
+          */}
+          {isLoading ? (
+            <p className='text-white'>Loading...</p>
+          ) : errorMessage ? (
+            <p className="text-red-500">{errorMessage}</p>
+          ) : (
+            <ul>
+              {movieList.map((movie) => (
+                <p className="text-white">{movie.title}</p>
+              ))}
+            </ul>
+          )}
+
+
+
         </section>
 
       </div>
