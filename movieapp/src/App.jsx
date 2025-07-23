@@ -23,9 +23,17 @@ const App = () => {
   // for movie list
   const [movieList, setMovieList] = useState([]);
   // for a 'is loading' message
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  // debounce for search optimisation
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
       
-  
+  // useDebounce hook. set 500ms delay.
+  // and searchterm for dependency array (so it triggers when search term is changed)
+  // Prevents the user from making too many API requests by using debouncing
+  // waits for the user to STOP TYPING for 500ms before sending final query
+  useDebounce(() => setDebouncedSearchTerm(searchTerm), 
+    500, [searchTerm]);
+
   const fetchMovies = async (query = '') => {
     // initialise 'isLoading' and error message before running
     setIsLoading(true);
@@ -33,6 +41,8 @@ const App = () => {
 
     try{
       // declare endpoint url and fetch data from it
+      // if query provided : encode URI with the query
+      // else, display default movie list sorted by popularity
       const endpoint = query 
       ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
       : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
@@ -70,8 +80,8 @@ const App = () => {
   }
 
   useEffect(() => {
-    fetchMovies(searchTerm);
-  }, [searchTerm]);
+    fetchMovies(debouncedSearchTerm);
+  }, [debouncedSearchTerm]);
 
   return (
     <main>
