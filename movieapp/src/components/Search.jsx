@@ -1,7 +1,6 @@
 import React from 'react'
 
 
-
 const Search = ({searchTerm, setSearchTerm}) => {
     // do not change the props (arguments) that were passed into the component
     // in this case, dont change the searchTerm (searchTerm = "I AM NOT BATMAN") etc

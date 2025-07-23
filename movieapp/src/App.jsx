@@ -25,14 +25,16 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false)
       
   
-  const fetchMovies = async () => {
+  const fetchMovies = async (query = '') => {
     // initialise 'isLoading' and error message before running
     setIsLoading(true);
     setErrorMessage('');
 
     try{
       // declare endpoint url and fetch data from it
-      const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+      const endpoint = query 
+      ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
+      : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
       const response = await fetch(endpoint, API_OPTIONS)
       
       // if response is not a HTTP OK, then throw error
@@ -67,8 +69,8 @@ const App = () => {
   }
 
   useEffect(() => {
-    fetchMovies();
-  }, []);
+    fetchMovies(searchTerm);
+  }, [searchTerm]);
 
   return (
     <main>
@@ -81,7 +83,7 @@ const App = () => {
         
 
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        <h3 className="text-white">{searchTerm}</h3>
+        
         </header>
 
         <section className='all-movies'>
@@ -93,6 +95,7 @@ const App = () => {
           else if errorMessage - show error message text
           else - render movie list 
           */}
+          
           {isLoading ? (
             <Spinner />
           ) : errorMessage ? (
