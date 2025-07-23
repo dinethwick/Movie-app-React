@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Search from './components/search'
 import Spinner from './components/spinner'
 import MovieCard from './components/MovieCard'
+import {useDebounce} from 'react-use'
 
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -95,7 +96,7 @@ const App = () => {
           else if errorMessage - show error message text
           else - render movie list 
           */}
-          
+
           {isLoading ? (
             <Spinner />
           ) : errorMessage ? (
