@@ -27,10 +27,10 @@ const App = () => {
   // debounce for search optimisation
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
       
-  // useDebounce hook. set 500ms delay.
-  // and searchterm for dependency array (so it triggers when search term is changed)
-  // Prevents the user from making too many API requests by using debouncing
-  // waits for the user to STOP TYPING for 500ms before sending final query
+  // useDebounce hook -
+  // with searchterm as dependency array (so it triggers when search term is changed)
+  // Prevents the user from making too many API requests by using debouncing -
+  // wait for the user to STOP TYPING for 500ms before sending final query.
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 
     500, [searchTerm]);
 
