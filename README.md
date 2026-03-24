@@ -7,7 +7,8 @@ I intergrated the TMDB (The Movie Database) API for this project.
 It has a search function with debouncing implemented to avoid overwhelming the API with queries.
 
 
-you can visit the site at: https://movieapp.dinethwick.com/
+This project was previously deployed at https://movieapp.myname.com/
+and is now **archived**.
 
 ![hero section image](hero-section.png)
 ![search section image](search-section.png)
